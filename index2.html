@@ -1,0 +1,216 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<title></title>
+	<style type="text/css">
+		@font-face {
+			font-family: aboba;
+			src: url(1.ttf);
+		}
+		.boxes {
+			background: red;
+			height: 100px;
+			width: 100px;
+			position: absolute;
+			transition: 3s;
+			border-radius: 500px;
+			font-family: aboba;
+		}
+		.s {
+			font-family: aboba;
+			color: white;
+
+		}
+		.win {
+			background-image: url('win.jpg');
+			background-size: 100% 100%;
+			height: 400px;
+			width: 800px;
+			position: absolute;
+			left: 500px;
+			top: 200px;
+			text-align: center;
+			display: none;
+			font-family: aboba;
+			color: white;
+		}
+		.btn {
+			height: 40px;
+			width: 150px;
+			background: lime;
+			border: none;
+			color: white;
+			position: absolute;
+			top: 20px;
+			left: 360px;
+		}
+		.lose {
+			position: absolute;
+			left: 450px;
+			top: 250px; 
+			display: none;
+		}
+		
+	</style>
+</head>
+<body style="background-image: url('bg.jpg');">
+	<div class="s">
+		<h1>Очки: <span class="score">0</span></h1>
+		<h3>У тебя есть <span class="timer">15</span> секунд, чтобы собрать все шарики</h3>
+	</div>
+	<div class="ab">
+	
+		<div class="boxes" style="top: 200px;" onclick="off()">
+			
+		</div>
+		<div class="boxes" style="top: 150px; left: 150px;" >
+			
+		</div>
+		<div class="boxes" style="top: 450px; left: 600px;" >
+			
+		</div>
+		<div class="boxes" style="top: 470px; left: 400px;" >
+			
+		</div>
+		<div class="boxes" style="top: 300px; left: ;">
+			
+		</div>
+		<div class="boxes" style="top: 450px; left: 150px;">
+			
+		</div>
+		<div class="boxes" style="top: 150px; left: 300px;">
+			
+		</div>
+		<div class="boxes" style="top: 50px; left: 400px;">
+			
+		</div>
+		<div class="boxes" style="top: 200px; left: 600px;">
+			
+		</div>
+		<div class="boxes" style="top: 700px; left: 700px;">
+			
+		</div>
+		<div class="boxes" style="top: 100px; left: 900px;">
+			
+		</div>
+		<div class="boxes" style="top: 150px; left: 1300px;">
+			
+		</div>
+		<div class="boxes" style="top: 400px; left: 1500px;">
+			
+		</div>
+		<div class="boxes" style="top: 500px; left: 1000px;">
+			
+		</div>
+		<div class="boxes" style="top: 800px; left: 1400px;">
+			
+		</div>
+		<div class="boxes" style="top: 650px; left: 200px;">
+			
+		</div>
+	</div>
+
+	<div class="win">
+		<h1>Ты победил! Кликни по ссылкочке чтобы перейти на следующий уровень.</h1>
+		<a href="index3.html" style="margin-top: 100px;">Перейти на следуйщий уровень</a>
+	</div>
+
+	<div class="lose">
+		<button class="btn">Попробывать снова</button>
+		<img src="lose.jpg">
+	</div>
+
+
+
+<script type="text/javascript">
+	let boxes = document.querySelectorAll(".boxes")
+	let timertxt = document.querySelector(".timer")
+	let score = 0
+	let time = 15
+	let timerId = setTimeout(lose, 15000)
+
+
+	function move() {
+		for(let i=0; i<16; i++) {
+			boxes[i].style.top = getRandom() + "px"
+			boxes[i].style.left = getRandom() + "px"
+			boxes[i].onclick = function() {
+				score = score + 1
+				document.querySelector(".score").innerHTML = score
+				boxes[i].style.display = "none"
+				if (score == 16) {
+					alert("You win!")
+					document.querySelector(".win").style.display = "block"
+					document.querySelector(".ab").style.display = "none"
+					clearTimeout(timerId)
+				}
+
+			}
+			
+		}
+		
+		function getRandom() {
+			let num = Math.round(Math.random() * 1000)
+			return num
+		}
+		for(let i=0; i<4; i++) {
+			boxes[i].style.backgroundImage = "url('1.jpg')"
+			boxes[i].style.backgroundSize = "100% 100%"
+			boxes[i].style.height = "60px"
+			boxes[i].style.width = "60px"
+		}
+		for(let i=4; i<6; i++) {
+			boxes[i].style.backgroundImage = "url('2.jpg')"
+			boxes[i].style.backgroundSize = "150px 100px"
+			boxes[i].style.height = "110px"
+			boxes[i].style.width = "110px"
+		}
+		for(let i=6; i<9; i++) {
+			boxes[i].style.backgroundImage = "url('3.jpg')"
+			boxes[i].style.backgroundSize = "100% 100%"
+			boxes[i].style.width = "80px"
+		}
+		for(let i=9; i<13; i++) {
+			boxes[i].style.backgroundImage = "url('4.jpg')"
+			boxes[i].style.backgroundSize = "90% 100%"
+			boxes[i].style.height = "40px"
+			boxes[i].style.width = "40px"
+		}
+		for(let i=13; i<16; i++) {
+			boxes[i].style.height = "140px"
+			boxes[i].style.width = "140px"
+			boxes[i].style.backgroundImage = "url('5.jpg')"
+			boxes[i].style.backgroundSize = "100% 100%"
+		}
+	}
+
+	function lose() {
+		for(let i=0; i<16; i++) {
+			boxes[i].style.display = "none"
+			document.querySelector(".s").style.display = "none"
+		}
+		alert("You lose!")
+		document.querySelector(".lose").style.display = "block"
+	}
+
+	document.querySelector(".btn").onclick = function() {
+		location.reload(true)
+	}
+
+	function timer() {
+		time = time - 1
+		timertxt.innerHTML = time
+	}
+
+	setInterval(timer, 1000)
+
+	setInterval(move, 1500)
+
+
+
+
+</script>
+</body>
+</html>
